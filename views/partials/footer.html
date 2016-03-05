@@ -1,0 +1,10 @@
+<div class="adresse">
+	{{ streams:adresse limit="1" }}
+	<ul class="footer-adresse">
+    	<li>{{ firma }}</li>
+    	<li>{{ strasse }}</li>
+    	<li>{{ plz }} {{ ort }}</li>
+    	<li>{{ e_mail:safe_mailto_link }}</li>
+    </ul>
+	{{ /streams:adresse }}
+</div>

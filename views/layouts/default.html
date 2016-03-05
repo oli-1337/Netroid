@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+
+
+	
+	<!-- LayerSlider stylesheet -->
+	{{theme:css file="layerslider.css"}}
+	<!-- External libraries: jQuery & GreenSock -->
+	{{theme:partial name="header"}}
+	<!-- LayerSlider script files -->
+	{{theme:js file="layerslider.transitions.js"}}
+	{{theme:js file="layerslider.kreaturamedia.jquery.js"}}
+	{{theme:js file="parsley.js"}}
+
+	<style>
+
+		/*
+			You can add your custom layer styles
+			in the style attribute of the layer,
+			to a style element or
+			to an external css file
+		*/
+
+		#layerslider * {
+			font-family: Lato, 'Open Sans', sans-serif;
+			font-weight: 300;
+		}
+
+		#layerslider h1 {
+			font-size: 30px;
+			color: #eee;
+		}
+
+		#layerslider h2 {
+			font-size: 40px;
+			color: #111;
+		}
+
+
+	</style>
+
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+	
+	<nav class="navbar navbar-default navbar-fixed-top">
+	    <div class="container">
+	    	<div class="navbar-header page-scroll">
+		        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		        <span class="sr-only">Toggle navigation</span>	
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        </button>
+		        <a class="navbar-brand" href="#">Netroid</a>
+	    	</div>
+	       
+		    <div id="navbar" class="navbar-collapse collapse">
+		    	<ul class="nav navbar-nav">
+		        	<li class="page-scroll"><a href="#home">Home</a></li>
+		            <li class="page-scroll"><a href="#about">About</a></li>
+		            <li class="page-scroll"><a href="#projects">Projects</a></li>
+		            <li class="page-scroll"><a href="#contact">Contact</a></li>
+		        </ul>
+		    </div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<section id="home" class="home-section">
+		<h1>{{ settings:site_name }}</h1>
+		<h2>{{ settings:site_slogan }}</h2>
+	</section>	
+
+	<section id="about" class="about-section">
+	<h1> About Us </h1>
+		{{ streams:cycle stream="wir" }}
+		    <div class="about">
+		    	{{foto}}
+		    	{{name}}
+		    	{{vorname}}
+		    	{{ort}}
+		    	{{skills}}
+		    	{{text}}
+		    </div>
+		{{ /streams:cycle }}
+
+		{{ streams:cycle stream="wir_text" }}
+		    <div class="about">
+		    	{{text}}
+		    </div>
+		{{ /streams:cycle }}
+	</section>
+
+	<section id="projects">
+		<div id="slider-wrapper">
+
+			<!-- LayerSlider start -->
+
+			<div id="layerslider" style="width: 1280px; height: 720px; max-width: 1280px;">
+
+				<!-- slide one start -->
+				{{ streams:cycle stream="projekte" }}
+					<div class="ls-slide" data-ls="slidedelay: 7000; transition2d: 75,79;">
+
+						<!-- slide background image -->
+
+						<img src="{{url:site}}addons/shared_addons/themes/netroid/img/background.png" class="ls-bg" alt="Slide background"/>
+
+						<!-- layer one -->
+
+
+						<!-- layer two -->
+
+						<img class="ls-l" style="left: 30%; top: 50%;" src="{{screenshot:image}}" alt="Image layer" data-ls="
+							offsetxin: left;
+							offsetxout: right;
+							offsetyin: 150;
+							offsetyout: -250;
+							fadein: false;
+							fadeout: false;
+							easingin: easeoutquart;
+							easingout: easeinquart;
+							durationin: 2500;
+							durationout: 2500;
+							delayin: 500;
+							showuntil: 1;
+						">
+
+						<div class="ls-l" style="top:220px;left:50px; text-align: justify;width:500px;font-size:20px;color:#def2ff;" data-ls="
+							offsetxin:-150;
+							durationin:2000;
+							delayin:500;
+							easingin:easeInOutQuart;
+							rotateyin:-40;
+							offsetxout:-150;
+							durationout:1000;
+							rotateyout:-40;
+						">
+							{{description}} 
+						</div>
+						<!-- additional informations -->
+						<div class="ls-l" style="top:280px;left:50px; text-align: justify;width:500px;font-size:20px;color:#def2ff;" data-ls="
+							offsetxin:-150;
+							durationin:2000;
+							delayin:500;
+							easingin:easeInOutQuart;
+							rotateyin:-40;
+							offsetxout:-150;
+							durationout:1000;
+							rotateyout:-40;
+						">
+							<ul>
+								<li>{{kunde}}</li>
+								<li>{{branche}}</li>
+								<li><a href="{{link}}" target="_blank">{{link}}</a></li>
+							</ul>
+						</div>
+
+					</div>
+
+					<!-- slide one end -->
+				{{ /streams:cycle }}
+			</div>
+
+			<!-- LayerSlider end -->
+
+		</div>
+	</section>
+
+	<section id="contact" class="contact-section">
+		<div class="formular" >
+			<h1> Schreib Uns! </h1>
+
+				{{ contact:form
+				    nachname = "text"
+				    vorname = "text|required"
+				    email = "text|required|valid_email"
+				    tel = "text"
+				    subject = "dropdown|required|anfrage=Anfrage|anmerkung=Anmerkung|Something Else"
+				    message = "textarea|required"
+				    reply-to = "info@netroid.ch" 
+				    button = "send"
+				    template = "contact"
+				    lang = "de"
+				    to = "oli.schoepfer@gmail.com"
+				    from = "info@netroid.ch"
+				    sent = "Ihre Nachricht wurde an uns gesendet."
+				    error = "Ups.. Da ist etwas schief gelaufen. Versuchen Sie es nochmal"
+				    success-redirect = "#contact"
+				}}
+
+				{{ session:messages success="success-note" error="error-note" }}
+
+				 	<div class="form-group">
+				 		<label class="control-label" for="contact_nachname">Nachname</label>
+				 		{{ nachname }}
+				 	</div>					 	
+
+				 	<div class="form-group">
+				 		<label class="control-label" for="contact_vorname">Vorname</label>
+				 		{{ vorname }}
+				 	</div>
+
+					<div class="form-group">
+				 		<label class="control-label" for="contact_email">E-Mail</label>
+				 		{{ email }}
+				 	</div>
+					<div class="form-group">
+				 		<label class="control-label" for="contact_tel">Telefon</label>
+				 		{{ tel }}
+				 	</div>
+					<div class="form-group">
+				 		<label class="control-label" for="contact_subject">Betreff</label>
+				 		{{ subject }}
+				 	</div>
+				 	<div class="form-group">
+				 		<label class="control-label" for="contact_message">Nachricht</label>
+				 		{{ message }}
+				 	</div>
+
+				 	{{ streams:form_csrf }}
+				
+			{{ /contact:form }}
+		</div>
+	</section>
+
+	
+    <footer id="footer" class="footer-section">
+    	{{theme:partial name="footer"}}
+    	{{theme:js file="bootstrap.min.js" }}
+    	{{theme:js file="scrolling.js" }}
+    	{{theme:js file="easing.js" }}
+
+		<script type="text/javascript">
+		$(document).ready(function(){
+			// define validation requirements for the fields
+			$('#form input, #form select').attr('data-parsley-trigger', 'focusout');
+			$('#contact_vorname').attr('data-parsley-required', '');
+			$('#contact_nachname').attr('data-parsley-required', '');
+			$('#contact_email').attr('data-parsley-required', '');
+			$('#contact_email').attr('data-parsley-type', 'email');
+			$('#contact_message').attr('data-parsley-required', '');
+			$('#contact_message').attr('data-parsley-minlength', 10);
+
+			// init parsley
+			$('#form').parsley({
+		        successClass: 'has-success',
+		        errorClass: 'has-error',
+		        classHandler: function(ParsleyField) {
+		            return ParsleyField.$element.closest('.form-group');
+		        },
+		        errorsWrapper: '<span class="help-block"></span>',
+		        errorTemplate: '<span></span>'
+		    });
+		});
+
+		</script>
+
+		<!-- Initializing the slider -->
+		<script>
+			jQuery("#layerslider").layerSlider({
+				pauseOnHover: false,
+				skinsPath: '{{site:url}}addons/shared_addons/themes/netroid/js/skins/'
+			});
+		</script>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{theme:partial name="header"}}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{{theme:js file="parsley.js"}}
+
+
+
+
+</head>
+
+	<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+		<nav class="navbar navbar-default navbar-fixed-top">
+		    <div class="container">
+		    	<div class="navbar-header page-scroll">
+			        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			        <span class="sr-only">Toggle navigation</span>	
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        </button>
+			        <a class="navbar-brand" href="#">Tutorial One Page</a>
+		    	</div>
+		       
+			    <div id="navbar" class="navbar-collapse collapse">
+			    	<ul class="nav navbar-nav">
+			        	<li class="page-scroll"><a href="#home">Home</a></li>
+			            <li class="page-scroll"><a href="#about">About</a></li>
+			            <li class="page-scroll"><a href="#projects">Projects</a></li>
+			            <li class="page-scroll"><a href="#contact">Contact</a></li>
+			        </ul>
+			    </div><!--/.nav-collapse -->
+			</div>
+		</nav>
+
+	    <section id="home" class="home-section">
+	    	<h1>{{ settings:site_name }}</h1>
+ 			<h2>{{ settings:site_slogan }}</h2>
+	    </section>
+
+	    <section id="about" class="about-section">
+	    	Das ist die about Seite 
+	    </section>
+
+	    <section id="projects" class="projects-section">
+	    	{{ streams:cycle stream="projekte" }}
+			    <div class="project">
+			    	<h1>{{projektname}}</h1>
+			    	<img class="screenshot" src="{{screenshot:image}}" style="width:500px">
+			    </div>
+			{{ /streams:cycle }}
+	    </section>
+
+	    <section id="contact" class="contact-section">
+			<div class="formular" >
+				<h1> Kontakt </h1>
+				<div class="bs-callout bs-callout-warning hidden">
+				  <h4>Oh snap!</h4>
+				  <p>This form seems to be invalid :(</p>
+				</div>
+
+				<div class="bs-callout bs-callout-info hidden">
+				  <h4>Yay!</h4>
+				  <p>Everything seems to be ok :)</p>
+				</div>
+
+					{{ contact:form
+					    name="text|required"
+					    email="text|required|valid_email"
+					    tel="text"
+					    subject="dropdown|required|anfrage=Anfrage|anmerkung=Anmerkung|Something Else"
+					    message="textarea|required"
+					    replyto = "info@netroid.ch" 
+					    button="send"
+					    template="contact"
+					    lang="de"
+					    to="oli.schoepfer@gmail.com"
+					    from="info@netroid.ch"
+					    sent="Ihre Nachricht wurde an uns gesendet."
+					    error="Ups.. Da ist etwas schief gelaufen. Versuchen Sie es nochmal"
+					    successrdirect = "contact"	
+					}}
+
+					<!-- Success Notification --> 
+					{{ session:messages success="success-note" }}
+					<!-- Error Notification --> 
+					{{ session:messages error="error-note" }}
+					
+					<!-- contact form -->
+					
+					 	<div class="form-group">
+					 		<label class="control-label" for="contact_name">Vorname / Name</label>
+					 		<input type="text" name="name" id="contact_name" />
+					 	</div>
+
+						<div class="form-group">
+					 		<label class="control-label" for="contact_email">E-Mail</label>
+					 		{{ email }}
+					 	</div>
+						<div class="form-group">
+					 		<label class="control-label" for="contact_tel">Telefon</label>
+					 		{{ tel }}
+					 	</div>
+						<div class="form-group">
+					 		<label class="control-label" for="contact_subject">Betreff</label>
+					 		{{ subject }}
+					 	</div>
+					 	<div class="form-group">
+					 		<label class="control-label" for="contact_message">Nachricht</label>
+					 		{{ message }}
+					 	</div>
+					
+				{{ /contact:form }}
+			</div>
+	    </section>
+
+
+
+	    <section id="footer" class="footer-section">
+
+	    	{{theme:js file="bootstrap.min.js" }}
+	    	{{theme:js file="scrolling.js" }}
+	    	{{theme:js file="easing.js" }}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// define validation requirements for the fields
+	$('#form input, #form select').attr('data-parsley-trigger', 'focusout');
+	$('#contact_name').attr('data-parsley-required', '');
+	$('#contact_email').attr('data-parsley-required', '');
+	$('#contact_email').attr('data-parsley-type', 'email');
+	$('#contact_message').attr('data-parsley-required', '');
+	$('#contact_message').attr('data-parsley-minlength', 10);
+
+	// init parsley
+	$('#form').parsley({
+        successClass: 'has-success',
+        errorClass: 'has-error',
+        classHandler: function(ParsleyField) {
+            return ParsleyField.$element.closest('.form-group');
+        },
+        errorsWrapper: '<span class="help-block"></span>',
+        errorTemplate: '<span></span>'
+    });
+});
+
+</script>
+
+	    </section>
+
+
+
+	</body>
+</html>
